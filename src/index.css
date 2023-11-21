@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gibson";
+  src: url("/Font/Gibson/Gibson.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gibson-SemiBold";
+  src: url("/Font/Gibson/Gibson-SemiBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gibson-Bold";
+  src: url("/Font/Gibson/Gibson-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gibson-Italic";
+  src: url("/Font/Gibson/Gibson-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gibson-Bold";
+  src: url("/Font/Gibson/Gibson-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gibson-Light";
+  src: url("/Font/Gibson/Gibson-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Gibson-Regular";
+  src: url("/Font/Gibson/Gibson-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "DairyMilkFont-Medium";
+  src: url("/Font/DairyMilkFont-Medium.otf/DairyMilkFont-Medium.otf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  caret-color: transparent;
+}
+
+.remove-arrow {
+  -moz-appearance: textfield;
+  caret-color: transparent;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(128, 0, 128, 0.201);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #edb45e;
+  border-radius: 10px;
+}
+
+.animate-zoomInOut {
+  animation: zoomInOut 2.5s ease-in-out forwards infinite;
+  transition: transform 0.3s ease;
+}
+
+@keyframes zoomInOut {
+  0%,
+  100% {
+    transform: scale3d(1, 1, 1) rotate(-15deg) perspective(500px);
+  }
+  50% {
+    transform: scale3d(0.7, 0.7, 1) rotate(0deg) perspective(500px);
+  }
+}
