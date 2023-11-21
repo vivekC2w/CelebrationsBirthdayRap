@@ -5,7 +5,7 @@ import "./OtpModal.css";
 const OtpModal = ({ onClose }) => {
   const inputRefs = Array.from({ length: 4 }, () => useRef(null));
   const [otp, setOtp] = useState(["", "", "", ""]);
-  const [setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleInputChange = (index, value) => {
     setActiveIndex(index);
