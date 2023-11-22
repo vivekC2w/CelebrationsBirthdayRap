@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Input from "../components/utils/Input";
 import Button from "../components/utils/Button";
 import ProgressBar from "../components/utils/ProgressBar";
-import Select from "../components/utils/Select";
 import { useNavigate } from "react-router-dom";
+import { useFormDataContext } from "../ContextApi/FormDataContext";
 
 const Form3 = () => {
   const navigate = useNavigate();
@@ -25,6 +25,8 @@ const Form3 = () => {
     q6: "",
   });
 
+  const { handleForms } = useFormDataContext();
+
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     setFormData((prevState) => ({
@@ -34,7 +36,6 @@ const Form3 = () => {
   };
 
   const handleFocus = (e) => {
-    // Clear validation error when user starts typing
     const { name } = e.target;
     setFormErrors((prevState) => ({
       ...prevState,
@@ -47,6 +48,7 @@ const Form3 = () => {
 
     if (Object.values(formErrors).join("") === "") {
       console.log(formData);
+      handleForms("form3", formData);
       navigate("/form4");
     }
   };
@@ -97,7 +99,7 @@ const Form3 = () => {
               onSubmit={handleSubmit}
               className="flex-col flex gap-4 text-sm"
             >
-              <div className="h-[280px] overflow-y-auto flex flex-col gap-4">
+              <div className="h-[280px] overflow-y-auto px-4 flex flex-col gap-4">
                 <Input
                   id="q1"
                   name="q1"
@@ -183,6 +185,7 @@ const Form3 = () => {
                   bgColor="#b191e9"
                   text="Answer More"
                   color="#fff"
+                  disabled
                 />
 
                 <Button

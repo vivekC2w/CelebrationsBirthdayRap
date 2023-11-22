@@ -1,68 +1,38 @@
 import { useState } from "react";
-import Input from "../components/utils/Input";
 import Button from "../components/utils/Button";
 import ProgressBar from "../components/utils/ProgressBar";
+import GenreWrapper from "../components/GenreWrapper/GenreWrapper";
+import { genre, mood, singersVoice } from "../constants";
+import IconsWrapper from "../components/Icons/IconsWrapper";
 import { useNavigate } from "react-router-dom";
+import { useFormDataContext } from "../ContextApi/FormDataContext";
 
 const Form2 = () => {
+  const [selected, setSelected] = useState({
+    mood: "",
+    genre: "",
+    singersVoice: "",
+  });
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    q1: "",
-    q2: "",
-    q3: "",
-    q4: "",
-    q5: "",
-    q6: "",
-  });
 
-  const [formErrors, setFormErrors] = useState({
-    q1: "",
-    q2: "",
-    q3: "",
-    q4: "",
-    q5: "",
-    q6: "",
-  });
-
-  const handleInputChange = (e) => {
-    let { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleFocus = (e) => {
-    // Clear validation error when user starts typing
-    const { name } = e.target;
-    setFormErrors((prevState) => ({
-      ...prevState,
-      [name]: "",
-    }));
-  };
+  const { handleForms } = useFormDataContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (Object.values(formErrors).join("") === "") {
-      console.log(formData);
-      navigate("/form4");
+    console.log("Selected", selected);
+    if (Object.values(selected).some((val) => val === "")) {
+      return;
     }
+    handleForms("form2", selected);
+    navigate("/form3");
   };
 
-  const checkErrors = (e) => {
-    let { name, value } = e.target;
-
-    if (!value) {
-      value = `This Field is required`;
-    } else {
-      value = "";
-    }
-
-    setFormErrors((prevState) => ({
+  const handleSelected = (key, value) => {
+    setSelected((prevState) => ({
       ...prevState,
-      [name]: value,
+      [key]: value,
     }));
+    console.log("Key", key, value);
   };
 
   return (
@@ -94,91 +64,48 @@ const Form2 = () => {
           </div>
 
           <div className="relative -top-20 px-4">
-            {/* Input Fields */}
             <form
               onSubmit={handleSubmit}
               className="flex-col flex gap-4 text-sm"
             >
-              <div className="h-[280px] overflow-y-auto flex flex-col gap-4">
-                <Input
-                  id="q1"
-                  name="q1"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What's your pet name for them?"
-                  required={true}
-                  value={formData.q1}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q2"
-                  name="q2"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What makes them angry?"
-                  required={true}
-                  value={formData.q2}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q3"
-                  name="q3"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What is the funniest thing they do?"
-                  required={true}
-                  value={formData.q3}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q4"
-                  name="q4"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What makes them smile?"
-                  required={true}
-                  value={formData.q4}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q5"
-                  name="q5"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What is their favorite movie?"
-                  required={true}
-                  value={formData.q5}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q6"
-                  name="q6"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="Their favorite sport."
-                  required={true}
-                  value={formData.q6}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-              </div>
+              <GenreWrapper title="Mood">
+                {mood?.map(({ subTitle, imgSrc }) => (
+                  <IconsWrapper
+                    key={subTitle}
+                    subTitle={subTitle}
+                    title="mood"
+                    imgSrc={imgSrc}
+                    selected={selected}
+                    handleSelected={handleSelected}
+                  />
+                ))}
+              </GenreWrapper>
+              <GenreWrapper title="Genre">
+                {genre?.map(({ subTitle, imgSrc }) => (
+                  <IconsWrapper
+                    key={subTitle}
+                    subTitle={subTitle}
+                    title="genre"
+                    imgSrc={imgSrc}
+                    selected={selected}
+                    handleSelected={handleSelected}
+                  />
+                ))}
+              </GenreWrapper>
+              <GenreWrapper title="Singer's Voice">
+                {singersVoice?.map(({ subTitle, imgSrc }) => (
+                  <IconsWrapper
+                    borderRadius={"rounded-lg"}
+                    width={"w-32"}
+                    key={subTitle}
+                    title="singersVoice"
+                    subTitle={subTitle}
+                    imgSrc={imgSrc}
+                    selected={selected}
+                    handleSelected={handleSelected}
+                  />
+                ))}
+              </GenreWrapper>
               <div className="flex items-center justify-center gap-4">
                 <Button
                   type="submit"

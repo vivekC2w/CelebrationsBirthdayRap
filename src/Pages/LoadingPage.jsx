@@ -1,4 +1,17 @@
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 const LoadingPage = () => {
+  const navigate = useNavigate();
+  const audioRef = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      audioRef.current.pause();
+      navigate("/form5");
+    }, 5000);
+  }, []);
+
   return (
     <div className="relative h-screen ">
       <div className="relative flex w-full justify-center items-center px-6 top-60">
@@ -52,6 +65,7 @@ const LoadingPage = () => {
           className="object-cover h-14 relative -top-10 animate-ping drop-shadow-md delay-500"
         />
       </div>
+      <audio src="/audio/dairymilk.mp3" autoPlay ref={audioRef}></audio>
     </div>
   );
 };

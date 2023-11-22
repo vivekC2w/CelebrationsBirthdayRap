@@ -1,5 +1,6 @@
 const RadioInput = (props) => {
   const { id, label } = props;
+
   return (
     <div className="w-full flex gap-4 items-center text-left text-sm font-gibson-regular">
       <input

@@ -1,5 +1,6 @@
 const Select = (props) => {
-  const { id, label, name, formErrors } = props;
+  const { id, label, name } = props;
+  const { formErrors, ...inputProps } = props;
   return (
     <div className="w-full font-gibson-semibold">
       {label && (
@@ -14,7 +15,7 @@ const Select = (props) => {
       <div className="relative">
         <select
           className="w-full placeholder:font-gibson-regular rounded-full border-none shadow outline-none bg-white py-2 px-4 text-black remove-arrow"
-          {...props}
+          {...inputProps}
         >
           <option value="male">Male</option>
           <option value="female">Female</option>

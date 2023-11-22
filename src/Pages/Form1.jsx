@@ -4,6 +4,7 @@ import Button from "../components/utils/Button";
 import ProgressBar from "../components/utils/ProgressBar";
 import Select from "../components/utils/Select";
 import { useNavigate } from "react-router-dom";
+import { useFormDataContext } from "../ContextApi/FormDataContext";
 // import { validateEmail, validatePhone } from "../commonFunctions";
 
 const Form1 = () => {
@@ -19,6 +20,8 @@ const Form1 = () => {
     age: "",
     gender: "",
   });
+
+  const { handleForms } = useFormDataContext();
 
   const handleInputChange = (e) => {
     let { name, value, type } = e.target;
@@ -45,6 +48,7 @@ const Form1 = () => {
 
     if (Object.values(formErrors).join("") === "") {
       console.log(formData);
+      handleForms("form1", formData);
       navigate("/form2");
     }
   };
@@ -78,7 +82,6 @@ const Form1 = () => {
         <div className="relative">
           <ProgressBar step={1} title="Tell us about your loved one..." />
 
-          {/* Celebrations(Bg) Image */}
           <img
             src="/assets/UI_Images/Cap&Gift.png"
             alt="Cap&Gift"

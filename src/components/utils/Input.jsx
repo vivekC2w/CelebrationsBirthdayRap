@@ -1,5 +1,6 @@
 const Input = (props) => {
-  const { id, label, name, formErrors, numberArrows, setAge } = props;
+  const { id, label, name } = props;
+  const { formErrors, numberArrows, setAge, ...inputProps } = props;
 
   const handleIncrease = () => {
     setAge(1);
@@ -21,8 +22,8 @@ const Input = (props) => {
 
       <div className="relative">
         <input
-          className="w-[90%] placeholder:font-gibson-regular rounded-full border-none shadow outline-none bg-white py-2 px-4 text-black appearance-none"
-          {...props}
+          className="w-full placeholder:font-gibson-regular rounded-full border-none shadow outline-none bg-white py-2 px-4 text-black appearance-none"
+          {...inputProps}
         />
         {numberArrows && (
           <div className="absolute right-0 top-0 flex items-center py-2 pr-3">

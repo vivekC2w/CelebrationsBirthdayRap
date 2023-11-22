@@ -14,8 +14,8 @@ const Register = () => {
     phone: "",
     name: "",
     email: "",
-    terms: "",
-    communication: "",
+    terms: "terms",
+    communication: "communication",
   });
 
   const [formErrors, setFormErrors] = useState({

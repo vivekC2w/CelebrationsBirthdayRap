@@ -1,9 +1,13 @@
 import { useRef, useState } from "react";
 import Button from "../utils/Button";
+import { useNavigate } from "react-router-dom";
+import { getRandom } from "../../commonFunctions";
 
 const OtpModal = ({ onClose }) => {
   const inputRefs = Array.from({ length: 4 }, () => useRef(null));
   const [otp, setOtp] = useState(["", "", "", ""]);
+  const navigate = useNavigate();
+  const [randomOtp, setRandomOtp] = useState(getRandom(0, 9999));
 
   const handleInputChange = (index, value) => {
     if (value.match(/^\d+$/) && index < 4) {
@@ -23,9 +27,27 @@ const OtpModal = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(otp.join(""));
-    onClose(e);
+    const otp1 = otp.join("");
+    console.log(otp1);
+    if (otp1.length < 4) {
+      return;
+    }
+
+    if (parseInt(otp1) === randomOtp) {
+      onClose(e);
+      navigate("/form1");
+    } else {
+      alert("Wrong OTP");
+    }
   };
+
+  const handleResendOtp = () => {
+    console.log("Reset OTP");
+    setRandomOtp(getRandom(0, 9999));
+    alert("OTP Resend Successfully!");
+  };
+
+  console.log(randomOtp);
 
   return (
     <div className="flex w-full h-full">
@@ -49,16 +71,20 @@ const OtpModal = ({ onClose }) => {
               />
             ))}
           </div>
-          <p className="font-gibson-semibold text-sm underline text-[#51087e] ml-auto w-max mb-6 mt-2">
+          <p
+            className="font-gibson-semibold text-sm underline text-[#51087e] ml-auto w-max mb-6 mt-2 cursor-pointer"
+            onClick={handleResendOtp}
+          >
             Resend OTP
           </p>
-          {/* </div> */}
-          <Button
-            type="submit"
-            text="Submit"
-            bgColor="#edb45e"
-            color="#51087e"
-          />
+          <div className="flex items-center justify-center">
+            <Button
+              type="submit"
+              text="Submit"
+              bgColor="#edb45e"
+              color="#51087e"
+            />
+          </div>
         </form>
       </div>
     </div>

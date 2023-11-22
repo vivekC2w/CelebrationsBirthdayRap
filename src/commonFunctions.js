@@ -7,3 +7,7 @@ export const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
   return emailRegex.test(email);
 };
+
+export const getRandom = (min, max) => {
+  return Math.ceil(Math.random() * (max - min) + min);
+};
