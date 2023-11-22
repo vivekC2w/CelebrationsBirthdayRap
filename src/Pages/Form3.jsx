@@ -7,6 +7,7 @@ import { useFormDataContext } from "../ContextApi/FormDataContext";
 
 const Form3 = () => {
   const navigate = useNavigate();
+  const [showMore, setShowMore] = useState(false);
   const [formData, setFormData] = useState({
     q1: "",
     q2: "",
@@ -26,6 +27,8 @@ const Form3 = () => {
   });
 
   const { handleForms } = useFormDataContext();
+
+  console.log(import.meta.env.VITE_API_KEY_CHATGPT);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -66,6 +69,10 @@ const Form3 = () => {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleShowMore = () => {
+    setShowMore(!showMore);
   };
 
   return (
@@ -139,53 +146,58 @@ const Form3 = () => {
                   onBlur={checkErrors}
                   formErrors={formErrors}
                 />
-                <Input
-                  id="q4"
-                  name="q4"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What makes them smile?"
-                  required={true}
-                  value={formData.q4}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q5"
-                  name="q5"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="What is their favorite movie?"
-                  required={true}
-                  value={formData.q5}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
-                <Input
-                  id="q6"
-                  name="q6"
-                  type="text"
-                  placeholder="xxxxxxxxxxxxxxx"
-                  label="Their favorite sport."
-                  required={true}
-                  value={formData.q6}
-                  onChange={handleInputChange}
-                  onFocus={handleFocus}
-                  onBlur={checkErrors}
-                  formErrors={formErrors}
-                />
+                {showMore && (
+                  <>
+                    <Input
+                      id="q4"
+                      name="q4"
+                      type="text"
+                      placeholder="xxxxxxxxxxxxxxx"
+                      label="What makes them smile?"
+                      required={true}
+                      value={formData.q4}
+                      onChange={handleInputChange}
+                      onFocus={handleFocus}
+                      onBlur={checkErrors}
+                      formErrors={formErrors}
+                    />
+                    <Input
+                      id="q5"
+                      name="q5"
+                      type="text"
+                      placeholder="xxxxxxxxxxxxxxx"
+                      label="What is their favorite movie?"
+                      required={true}
+                      value={formData.q5}
+                      onChange={handleInputChange}
+                      onFocus={handleFocus}
+                      onBlur={checkErrors}
+                      formErrors={formErrors}
+                    />
+                    <Input
+                      id="q6"
+                      name="q6"
+                      type="text"
+                      placeholder="xxxxxxxxxxxxxxx"
+                      label="Their favorite sport."
+                      required={true}
+                      value={formData.q6}
+                      onChange={handleInputChange}
+                      onFocus={handleFocus}
+                      onBlur={checkErrors}
+                      formErrors={formErrors}
+                    />
+                  </>
+                )}
               </div>
               <div className="flex items-center justify-center gap-4">
                 <Button
                   type="button"
-                  bgColor="#b191e9"
-                  text="Answer More"
+                  // bgColor="#b191e9"
+                  bgColor="#733dd1"
+                  text={`${showMore ? "Answer Less" : "Answer More"}`}
                   color="#fff"
-                  disabled
+                  onClick={handleShowMore}
                 />
 
                 <Button
